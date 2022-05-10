@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ASP.net.Models.Author>
+
+@{
+    ViewBag.Title = "Authors";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                Кол-во книг
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="table ">
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Books.Count)
+            </td>
+            <td class="d-flex">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Изменить</a>
+                <a asp-controller="Books" asp-action="Index" asp-route-id="@item.Id" class="btn btn-dark">Книги</a>
+                <a asp-controller="Authors" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Вы собираетесь удалить автора')">
+                    Удалить
+                </a>
+            </td>
+        </tr>
+}
+
+    </tbody>
+</table>

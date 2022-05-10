@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ASP.net.Models.Book>
+
+<table>
+    @foreach (var book in Model)
+    {
+        string status = book.Id > 0 ? "border-dark" : "border-success";
+        <tr>
+            <td>
+                <table class="table table-info booksList table-borderless border @status" style="margin-bottom: 0">
+                    <tr>
+                        <th scope="row">@Html.DisplayNameFor(b => b.Title)</th>
+                        <td>@book.Title</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="">@Html.DisplayNameFor(a => a.Genre)</th>
+                        <td>@book.Genre</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.DisplayNameFor(a => a.PageCount)</th>
+                        <td class="d-flex justify-content-between">@book.PageCount
+                            @if (book.Id > 0){
+                                <a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id" class="btn-sm btn-dark" onclick="return confirm('Вы хотите удалить книгу')">Удалить</a>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
+</table>

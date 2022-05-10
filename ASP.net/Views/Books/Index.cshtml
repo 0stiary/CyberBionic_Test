@@ -1,0 +1,45 @@
+﻿@using ASP.net.Models
+@model ASP.net.Models.Author
+
+
+<div class="container d-flex flex-column justify-content-center">
+    <header class="container-fluid ">
+        <table class="table table-borderless">
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(a => a.LastName)</th>
+                <td>
+                    <input asp-for="LastName" class="form-control" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(a => a.FirstName)</th>
+                <td>
+                    <input asp-for="FirstName" class="form-control" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(a => a.SurName)</th>
+                <td>
+                    <input asp-for="SurName" class="form-control" readonly="readonly" />
+                </td>
+            </tr>
+        </table>
+        <div class="d-flex justify-content-between">
+            <span>@Html.DisplayNameFor(a => a.Books)</span>
+            @*<a class="btn btn-light" asp-action="Add" asp-controller="Books">Добавить книгу</a>*@
+            <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#addBookModalFormContainer">Добавить книгу</button>
+            @{ ViewBag.authorBookID = Model.Id;}
+            @await Html.PartialAsync("_AddBookFormPartial", new Book())
+        </div>
+        <hr/>
+    </header>
+    <main class="container-fluid" id="booksList">
+        @if (Model.Books.Any())
+        {
+            @await Html.PartialAsync("_BooksListPartial", Model.Books)
+        }
+    </main>
+    <footer class="container-fluid d-flex justify-content-end">
+        <a asp-controller="Books" asp-action="Save" asp-route-id="@Model.Id" class="btn btn-primary">Сохранить</a>
+    </footer>
+</div>

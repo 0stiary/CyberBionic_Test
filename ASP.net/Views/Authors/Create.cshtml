@@ -1,0 +1,22 @@
+﻿@model ASP.net.Models.Author
+
+@{
+    ViewBag.Title = "Create Author";
+}
+
+
+<h4>Автор</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @await Html.PartialAsync("Partials/_AuthorPartialForm", Model)
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+

@@ -1,0 +1,59 @@
+﻿@model ASP.net.Models.Book
+
+
+<div id="addBookModalFormContainer" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header flex-row-reverse">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Добавить книгу</h4>
+            </div>
+
+            <script src="~/lib/jquery.unobtrusive-ajax.js"></script>
+            <div class="modal-body">
+                <form id="addBookModalForm" method="post" asp-area="" asp-controller="Books" asp-action="Add" asp-route-id="@ViewBag.authorBookID" style="margin: 0" 
+                      data-ajax="true"
+                      data-ajax-mode="replace" 
+                      data-ajax-update="#booksList">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Genre" class="control-label"></label>
+                        <input asp-for="Genre" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PageCount" class="control-label"></label>
+                        <input asp-for="PageCount" class="form-control" min="0" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Добавить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery.validate.min.js"></script>
+<script>
+    $(function() {
+        $("#addBookModalForm").validate({
+            rules: {
+                Title: "required",
+                Genre: "required",
+                PageCount: {
+                    required: true,
+                    min: 1
+                }
+            },
+            messages: {
+                Title: "Обязательное поле",
+                Genre: "Обязательное поле",
+                PageCount: "Кол-во страниц должно быть больше 0"
+            }
+        });
+    });
+</script>
